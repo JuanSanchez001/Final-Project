@@ -1,16 +1,13 @@
 {% extends "layout.html" %}
 
-{% set active_page = "page1" %}
+{% set active_page = "Menu" %}
 
-{% block title %}page1{% endblock %}
+{% block title %}Menu Page{% endblock %}
 
 {% block content %}
-  <h1>This is Page 1</h1>
 
-  <p>Lorem ipsum sit dolor amet.</p>
-
-  <pre>
-    {{ dump_user_data }}
-  </pre>
-
+  <center><p id='menu_title'>Menu<p></center>
+{% if logged_in %}  
+  <li id='play_button'><a class="nav-link" href="/play">Play</a></li>
+{% endif %}
 {% endblock %}

@@ -1,1 +1,25 @@
+li{
+align-items: center;
+text-align: center;
+font-size: 150px;
+border: 6px solid black;
+height: 250px;
+}
 
+#play_button{
+	align-items: center;
+	text-align: center;
+	font-size: 60px;
+	border: 6px solid black;
+	height: 100px;
+	
+}
+
+h1{
+font-size: 200px;
+
+}
+
+#menu_title{
+	font-size: 100px;
+}
