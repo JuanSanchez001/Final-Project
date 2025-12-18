@@ -6,6 +6,9 @@ border: 6px solid black;
 height: 250px;
 }
 
+#username{
+	font-size: 50px;
+}
 #play_button{
 	align-items: center;
 	text-align: center;

@@ -11,7 +11,26 @@
 {% if logged_in %}  
   <li id='play_button'><a class="nav-link" href="/play">Play</a></li>
 {% endif %}
+{% if logged_in %}
 
+<li id='username'><span>Github userid: {{ session['user_data']['login']}}</span></li>
+{% endif %}
+<br>
+<br>
+<table style="width:100%">
+  <tr>
+    <th>Character</th>
+    <th>All Time Wins</th>
+  </tr>
+  <tr>
+    <td> X </td>
+    <td> TBD </td>
+  </tr>
+  <tr>
+    <td> O </td>
+    <td>TBD</td>
+  </tr>
+</table>
 
 
 
