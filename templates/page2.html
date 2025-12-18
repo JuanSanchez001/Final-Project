@@ -5,9 +5,28 @@
 {% block title %}page2{% endblock %}
 
 {% block content %}
+<head>
+<p>TESTING</p>
+</head>
+<body onload="startGame()">
+<script>
 
-  <h1>This is Page 2</h1>
+function startGame() {
+    myGameArea.start();
+}
 
-  <p>Lorem ipsum</p>
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 480;
+        this.canvas.height = 270;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+    }
+}
+
+</script>
+
+<p>We have created a game area! (or at least an empty canvas)</p>
 
 {% endblock %}

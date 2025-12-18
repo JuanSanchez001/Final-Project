@@ -1,7 +1,5 @@
 from flask import Flask, redirect, url_for, session, request, jsonify, render_template, flash
 from markupsafe import Markup
-from flask_apscheduler import APScheduler
-from apscheduler.schedulers.background import BackgroundScheduler
 from flask_oauthlib.client import OAuth
 from bson.objectid import ObjectId
 
@@ -37,7 +35,7 @@ github = oauth.remote_app(
 url = os.environ["MONGO_CONNECTION_STRING"]
 client = pymongo.MongoClient(url)
 db = client[os.environ["MONGO_DBNAME"]]
-collection = db['posts'] #TODO: put the name of the collection here
+collection = db['Wins'] #TODO: put the name of the collection here
 
 # Send a ping to confirm a successful connection
 try:
@@ -47,7 +45,7 @@ except Exception as e:
     print(e)
 
 #context processors run before templates are rendered and add variable(s) to the template's context
-#context processors must return a dictionary 
+#context processors must return a dictionary
 #this context processor adds the variable logged_in to the conext for all templates
 @app.context_processor
 def inject_logged_in():
@@ -59,8 +57,8 @@ def home():
 
 #redirect to GitHub's OAuth page and confirm callback URL
 @app.route('/login')
-def login():   
-    return github.authorize(callback=url_for('authorized', _external=True, _scheme='https')) #callback URL must match the pre-configured callback URL
+def login():  
+    return github.authorize(callback=url_for('authorized', _external=True, _scheme='http')) #callback URL must match the pre-configured callback URL
 
 @app.route('/logout')
 def logout():
@@ -79,6 +77,7 @@ def authorized():
             session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
             session['user_data']=github.get('user').data
             message = 'You were successfully logged in as ' + session['user_data']['login'] + '.'
+            return redirect(url_for('renderPage1'))
         except Exception as inst:
             session.clear()
             print(inst)
@@ -93,6 +92,10 @@ def renderPage1():
     else:
         user_data_pprint = '';
     return render_template('page1.html',dump_user_data=user_data_pprint)
+    
+@app.route('/play')
+def play_button():
+    return redirect(url_for('renderPage2'))
 
 @app.route('/page2')
 def renderPage2():
