@@ -93,7 +93,7 @@ def renderPage1():
         user_data_pprint = '';
     return render_template('page1.html',dump_user_data=user_data_pprint)
     
-@app.route('/play')
+@app.route('/play', methods=['GET', 'POST'])
 def play_button():
     return redirect(url_for('renderPage2'))
 

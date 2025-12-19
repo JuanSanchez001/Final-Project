@@ -5,19 +5,57 @@
 {% block title %}Menu Page{% endblock %}
 
 {% block content %}
+<div class="menu-background">
+
+ <center><p id='menu_title'>Menu</p></center>
+ 
+ 
 
 
- <center><p id='menu_title'>Menu<p></center>
-{% if logged_in %}  
-  <li id='play_button'><a class="nav-link" href="/play">Play</a></li>
-{% endif %}
-{% if logged_in %}
+<form action="/play" method="POST">
+<li id='play_button'>
+<button type="submit" class="button">Play</button>
+</li>
+</form>
 
-<li id='username'><span>Github userid: {{ session['user_data']['login']}}</span></li>
-{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--{% if logged_in %}
+
+	    	<li><span class="navbar-text">Username: {{ session['user_data']['login']}}</span></li>
+	    	<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+		{% endif %}-->
+
+
+
+
+
+
+
+
+
+
 <br>
 <br>
-<table style="width:100%">
+<table>
   <tr>
     <th>Character</th>
     <th>All Time Wins</th>
@@ -35,5 +73,5 @@
 
 
 
-
+</div>
 {% endblock %}
