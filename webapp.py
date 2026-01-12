@@ -77,12 +77,11 @@ def authorized():
             session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
             session['user_data']=github.get('user').data
             message = 'You were successfully logged in as ' + session['user_data']['login'] + '.'
-            return redirect(url_for('renderPage1'))
         except Exception as inst:
             session.clear()
             print(inst)
             message = 'Unable to login, please try again.', 'error'
-    return render_template('message.html', message=message)
+    return render_template('page1.html', message=message)
 
 
 @app.route('/page1')
@@ -100,6 +99,31 @@ def play_button():
 @app.route('/page2')
 def renderPage2():
     return render_template('page2.html')
+    
+'''@app.route('/wins')
+def player_wins():
+if 'winner' in session and session['winner']in['X','O']:
+collection.update_one(
+{'_id: 1'},
+{"$inc":{f"{session['winner']}_wins":1}}
+)
+session.pop('winner')
+x_wins = collection.find_one({'_id': 1}) or {'x_wins': 0}
+o_wins = collection.find_one({'_id': 1}) or {'o_wins': 0}
+
+return render_template('page1.html, x_wins=x_wins, o_wins=o_wins')
+
+@app.route('/check_board')
+def winner_check():
+#possible winning combinations
+add loops for rows
+wins = [
+['0,1,2'], ['3,4,5'], ['6,7,8'],
+['0,3,6'], ['1,4,6'], ['2,5,8'],
+['0,4,8'], ['2,4,6']
+      ]
+     
+'''
 
 #the tokengetter is automatically called to check who is logged in.
 @github.tokengetter

@@ -4,55 +4,22 @@
 
 {% block title %}Menu Page{% endblock %}
 
-{% block content %}
+{% block content %}<!--lock text box after submitting x or o-->
+{% include 'message.html' %}
 <div class="menu-background">
 
  <center><p id='menu_title'>Menu</p></center>
- 
- 
-
-
 <form action="/play" method="POST">
 <li id='play_button'>
 <button type="submit" class="button">Play</button>
 </li>
 </form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!--{% if logged_in %}
 
 	    	<li><span class="navbar-text">Username: {{ session['user_data']['login']}}</span></li>
 	    	<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
 		{% endif %}-->
-
-
-
-
-
-
-
-
-
-
 <br>
 <br>
 <table>
@@ -61,17 +28,34 @@
     <th>All Time Wins</th>
   </tr>
   <tr>
-    <td> X </td>
-    <td> TBD </td>
-  </tr>
+    <td> 	&#x274C; </td>
+    <td>{{ x_wins }}</td>
+  </tr>	
   <tr>
-    <td> O </td>
-    <td>TBD</td>
+    <td><span style="color: blue; font-size: 40px;">&#x25CB;</span></td>
+    <td>{{ o_wins }}</td>
   </tr>
 </table>
+<br>
+<br>
 
 
 
+<h2>How To Play</h2>
+	<br>
+	<button type="button" class="collapsible">&bull; Instructions</button>
+	<div class="content">
+	<p><b>Welcome to "Tic Tac Toe: The Game". The rules are simple.</b><br><br>&bull; Get three boxes with you 
+	letter in a row or diagonal to win.<br><br><b>But keep these things in mind.</b><br><br>&bull; In order to play you must have 2 
+	players on the same device.<br>&bull; Each player must click and type their letter into an unclaimed 
+	text box and press submit each time they finish a turn.<br>&bull; Good Luck.</p>
+	</div>
+	
 
 </div>
 {% endblock %}
+
+
+
+	
+	

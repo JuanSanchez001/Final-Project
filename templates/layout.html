@@ -23,13 +23,15 @@
     <title>{% block title %}{% endblock %} - My Webpage</title>
 
 
+
   </head>
   <body>
-
+ {% include 'navbar.html' %}
 
     <div id="content">
       {% block content %}{% endblock %}
     </div>
-
+	
+	<script src="{{ url_for('static', filename='myScript.js') }}"></script>
   </body>
 </html>
