@@ -1,8 +1,4 @@
-{% extends "layout.html" %}
 
-{% block title %}Message{% endblock %}
-
-{% block content %}
  {% with msg = get_flashed_messages() %}
 {% if msg %}
 {% for message in msg %}
@@ -14,5 +10,3 @@
 {% endif %}
 {% endwith %}
 
-
-{% endblock %}

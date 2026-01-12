@@ -57,7 +57,7 @@ def home():
 
 #redirect to GitHub's OAuth page and confirm callback URL
 @app.route('/login')
-def login():  
+def login(): 
     return github.authorize(callback=url_for('authorized', _external=True, _scheme='http')) #callback URL must match the pre-configured callback URL
 
 @app.route('/logout')
@@ -76,12 +76,12 @@ def authorized():
         try:
             session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
             session['user_data']=github.get('user').data
-            message = 'You were successfully logged in as ' + session['user_data']['login'] + '.'
+            flash('You were successfully logged in as ' + session['user_data']['login'] + '.')
         except Exception as inst:
             session.clear()
             print(inst)
-            message = 'Unable to login, please try again.', 'error'
-    return render_template('page1.html', message=message)
+            flash('Unable to login, please try again.', 'error')
+    return render_template('page1.html')
 
 
 @app.route('/page1')
