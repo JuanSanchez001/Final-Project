@@ -113,8 +113,34 @@ def renderPage2():
                     }
             collection.insert_one(post)
     return render_template('page2.html')
+    
+    
+    
+# the pymongo.DESCENDING checks the newest doc    
+doc = collection.find_one(sort=[("_id", pymongo.DESCENDING)])
 
-'''@app.route('/wins')
+# Win combinations
+win_combinations = [
+    ("td1", "td2", "td3"), ("td4", "td5", "td6"), ("td7", "td8", "td9"), # Rows
+    ("td1", "td4", "td7"), ("td2", "td5", "td8"), ("td3", "td6", "td9"), # Columns
+    ("td1", "td5", "td9"), ("td3", "td5", "td7")                       # Diagonals
+]
+
+def check_winner(doc):
+    for p1, p2, p3 in win_combinations:# the p's mean position
+        v1 = (doc.get(p1) or "").lower()
+        v2 = (doc.get(p2) or "").lower()
+        v3 = (doc.get(p3) or "").lower()
+
+        #Each value is checked in order to find and make sure that is a win
+        if v1 == v2 == v3 and v1 in ["x", "o"]:
+            return f"Player {v1.upper()} wins!"
+            
+    return "No winner found."
+
+print(check_winner(doc))    
+'''
+@app.route('/wins')
 def player_wins():
 if 'winner' in session and session['winner']in['X','O']:
 collection.update_one(
@@ -127,16 +153,6 @@ o_wins = collection.find_one({'_id': 1}) or {'o_wins': 0}
 
 return render_template('page1.html, x_wins=x_wins, o_wins=o_wins')
 
-@app.route('/check_board')
-def winner_check():
-#possible winning combinations
-add loops for rows
-wins = [
-['0,1,2'], ['3,4,5'], ['6,7,8'],
-['0,3,6'], ['1,4,6'], ['2,5,8'],
-['0,4,8'], ['2,4,6']
-      ]
-     
 '''
 
 #the tokengetter is automatically called to check who is logged in.
