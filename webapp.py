@@ -96,10 +96,24 @@ def renderPage1():
 def play_button():
     return redirect(url_for('renderPage2'))
 
-@app.route('/page2')
+@app.route('/page2', methods=['GET', 'POST'])
 def renderPage2():
+    if request.method == 'POST':
+            user = session['user_data']
+            post = {
+                    "td1": request.form['td1'],
+                    "td2": request.form['td2'],
+                    "td3": request.form['td3'],
+                    "td4": request.form['td4'],
+                    "td5": request.form['td5'],
+                    "td6": request.form['td6'],
+                    "td7": request.form['td7'],
+                    "td8": request.form['td8'],
+                    "td9": request.form['td9'],
+                    }
+            collection.insert_one(post)
     return render_template('page2.html')
-    
+
 '''@app.route('/wins')
 def player_wins():
 if 'winner' in session and session['winner']in['X','O']:

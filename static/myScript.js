@@ -15,3 +15,22 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+
+
+//LINKS
+
+//https://www.perplexity.ai/search/if-you-have-a-github-repo-with-rrdGqopsSF2y2WHnJRB73g
+//https://stackoverflow.com/questions/15231812/random-background-images-css3
+
+//random images for each refresh
+$(document).ready(function() {
+
+    var bgArray = ['Space.jpg', 'River.jpg', 'Palm Trees.jpg', 'Flower Field.jpg', 'Desert Night.jpg'];
+    var bg = bgArray[Math.floor(Math.random() * bgArray.length)];
+    var path = 'static/';  // your images are directly in static/
+    
+    $('.game_background').css({
+        'background-image': 'url("' + path + bg + '")',
+        'background-repeat': 'no-repeat'
+    });
+}); 

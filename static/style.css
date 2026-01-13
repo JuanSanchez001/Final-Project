@@ -1,18 +1,15 @@
 .menu-background {
-  background-image: url("green_background.jpeg");
-  background-size: 100% 100%;
-  min-height: 100vh;             /* Full viewport height */
+	background-image: url("green_background.jpeg");
+	background-size: 100% 100%;
+	min-height: 100vh;             /* Full viewport height */
 }
 
-
-
-
 .check_login{
-align-items: center;
-text-align: center;
-font-size: 150px;
-border: 6px solid black;
-height: 250px;
+	align-items: center;
+	text-align: center;
+	font-size: 150px;
+	border: 6px solid black;
+	height: 250px;
 }
 
 #username{
@@ -22,37 +19,35 @@ height: 250px;
 	align-items: center;
 	text-align: center;
 	font-size: 60px;
-	
-	
 }
 
 button{
 	align-items: center;
 	text-align: center;
 }
+
 .button {
-  display: inline-block;
-  padding: 15px 25px;
-  font-size: 24px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  background-color: #04AA6D;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
-  width: 200px;
+	display: inline-block;
+	padding: 15px 25px;
+	font-size: 24px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	color: #fff;
+	background-color: #04AA6D;
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 9px #999;
+	width: 200px;
 }
 
 .button:active {
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+	box-shadow: 0 5px #666;
+	transform: translateY(4px);
 }
 
 h1{
-font-size: 200px;
-
+	font-size: 200px;
 }
 
 h2{
@@ -72,34 +67,50 @@ h2{
 }
 
 table {
-  max-width: 100%;
-  background: white;
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  align-items: center;
-  transition: transform 0.2s ease-in-out;
+	max-width: 100%;
+	background: white;
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	align-items: center;
+	transition: transform 0.2s ease-in-out;
+
 }
-table:hover {
-  transform: scale(1.1);
+.table1:hover {
+	transform: scale(1.1);
 }
+/* For transparent table*/
+/*https://www.perplexity.ai/search/is-there-a-way-to-make-a-table-3bwLHFkySiqpIeHlRhGjMQ?sm=d*/
 td, th {
-  border: 5px solid #dddddd;
-  text-align: center;
-  padding: 8px;
-  font-size: 20px;
-  
+	background-color: transparent;
+	border: 1px solid rgba(255, 255, 255, 0.3); 
+	text-align: center;
+	padding: 8px;
+	font-size: 20px;
+}
+
+.td0, .th1{
+	border: 5px solid #dddddd;
+	text-align: center;
+	padding: 8px;
+	font-size: 20px;
 }
 
 #logout_link{
 	color: DarkGray;
 }
+#logout_link:hover{
+	color: white;
+}
 
 .nav-link{
-	color: white;
+	color: White !important;
+}
+.nav-link:hover{
+	color: lightgrey !important;
 }
 
 
@@ -126,6 +137,41 @@ td, th {
 	background-color: #f1f1f1;
 }
 
-a{
-	color:white;
+a.link{
+	color: black !important;
+	text-decoration: none !important;
+}
+a.link:hover{
+	color: grey !important;
+	text-decoration: none !important;
+}
+
+
+
+
+#table1, #td1 {
+    background-color: rgba(0, 0, 0, 0.4); 
+	border-collapse: collapse;
+	border: 1px solid black;
+	width:800px;
+	margin: 0 auto;
+}
+
+.tr1{
+	height:200px;
+}
+
+input {
+	text-align: center;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.game_background{
+	background-size: 100% 100%;
+	min-height: 100vh;   
 }
