@@ -7,34 +7,38 @@
 {% block content %}
 <div class="game_background">
 <br>
-<div id="tableborders" style="overflow:auto;">
-<table id="table1">
-<tbody>
-<form action={{ url_for("renderPage1") }}  methods=['GET', 'POST']>
-<tr class="tr1">
-<td><input type="text" name="td1" maxlength="1" pattern="[xoXO]"></td>
-<td><input type="text" name="td2" maxlength="1" pattern="[xoXO]"></td>
-<td><input type="text" name="td3" maxlength="1" pattern="[xoXO]"></td>
-</tr>
+	<div id="tableborders" style="overflow:auto;">
+		<table id="table1">
+		<tbody>
+		<form action="{{ url_for('renderPage2') }}" method="POST"> 
+			<tr class="tr1">
+				<td><input type="text" name="td1" maxlength="1" pattern="[xoXO]"></td>
+				<td><input type="text" name="td2" maxlength="1" pattern="[xoXO]"></td>
+				<td><input type="text" name="td3" maxlength="1" pattern="[xoXO]"></td>
+			</tr>
 
-<tr class="tr1">
-<td><input type="text" name="td4" maxlength="1" pattern="[xoXO]"></td>
-<td><input type="text" name="td5" maxlength="1" pattern="[xoXO]"></td>
-<td><input type="text" name="td6" maxlength="1" pattern="[xoXO]"></td>
-</tr>
+			<tr class="tr1">
+				<td><input type="text" name="td4" maxlength="1" pattern="[xoXO]"></td>
+				<td><input type="text" name="td5" maxlength="1" pattern="[xoXO]"></td>
+				<td><input type="text" name="td6" maxlength="1" pattern="[xoXO]"></td>
+			</tr>
 
-<tr class="tr1">
-<td><input type="text" name="td7" maxlength="1" pattern="[xoXO]"></td>
-<td><input type="text" name="td8" maxlength="1" pattern="[xoXO]"></td>
-<td><input type="text" name="td9" maxlength="1" pattern="[xoXO]"></td>
-</tr>
-<div class ="center">
-<button type="submit">Submit</button>
-</div>
-</form>
+			<tr class="tr1">
+				<td><input type="text" name="td7" maxlength="1" pattern="[xoXO]"></td>
+				<td><input type="text" name="td8" maxlength="1" pattern="[xoXO]"></td>
+				<td><input type="text" name="td9" maxlength="1" pattern="[xoXO]"></td>
+			</tr>
+	<div class ="center">
+		<button type="submit">Submit</button>
+	</div>
+
 </tbody>
-</table>
-</div>
+    </table>
+    <div class="center">
+      <button type="submit">Submit</button>
+    </div>
+  </div>
+</form>
 </div>
 
 {% endblock %}

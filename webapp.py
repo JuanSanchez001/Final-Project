@@ -86,10 +86,7 @@ def authorized():
 
 @app.route('/page1')
 def renderPage1():
-    if 'user_data' in session:
-        user_data_pprint = pprint.pformat(session['user_data'])#format the user data nicely
-    else:
-        user_data_pprint = '';
+    
     return render_template('page1.html',dump_user_data=user_data_pprint)
     
 @app.route('/play', methods=['GET', 'POST'])
@@ -99,19 +96,22 @@ def play_button():
 @app.route('/page2', methods=['GET', 'POST'])
 def renderPage2():
     if request.method == 'POST':
-            user = session['user_data']
-            post = {
-                    "td1": request.form['td1'],
-                    "td2": request.form['td2'],
-                    "td3": request.form['td3'],
-                    "td4": request.form['td4'],
-                    "td5": request.form['td5'],
-                    "td6": request.form['td6'],
-                    "td7": request.form['td7'],
-                    "td8": request.form['td8'],
-                    "td9": request.form['td9'],
-                    }
-            collection.insert_one(post)
+        user = session['user_data']
+        doc = {
+            "td1": request.form['td1'],
+            "td2": request.form['td2'],
+            "td3": request.form['td3'],
+            "td4": request.form['td4'],
+            "td5": request.form['td5'],
+            "td6": request.form['td6'],
+            "td7": request.form['td7'],
+            "td8": request.form['td8'],
+            "td9": request.form['td9'],
+        }
+        collection.insert_one(doc)
+        
+        winner= check_winner(doc)
+        return redirect(url_for('renderPage1')) 
     return render_template('page2.html')
     
     
@@ -121,39 +121,50 @@ doc = collection.find_one(sort=[("_id", pymongo.DESCENDING)])
 
 # Win combinations
 win_combinations = [
-    ("td1", "td2", "td3"), ("td4", "td5", "td6"), ("td7", "td8", "td9"), # Rows
-    ("td1", "td4", "td7"), ("td2", "td5", "td8"), ("td3", "td6", "td9"), # Columns
-    ("td1", "td5", "td9"), ("td3", "td5", "td7")                       # Diagonals
+    ("td1", "td2", "td3"), ("td4", "td5", "td6"), ("td7", "td8", "td9"),
+    ("td1", "td4", "td7"), ("td2", "td5", "td8"), ("td3", "td6", "td9"),
+    ("td1", "td5", "td9"), ("td3", "td5", "td7")                
 ]
 
 def check_winner(doc):
-    for p1, p2, p3 in win_combinations:# the p's mean position
-        v1 = (doc.get(p1) or "").lower()
-        v2 = (doc.get(p2) or "").lower()
-        v3 = (doc.get(p3) or "").lower()
+    for t, i, r in win_combinations:#(t,i,r) = "Three in Row"
+        if t in doc:
+            T = doc[t].lower()# i used .lower and .upper to be able to put either capital X, O, or lowercase x, o
+        else:
+            T = ""
+        if i in doc:
+            I = doc[i].lower()
+        else:
+            I = ""
+        if r in doc:
+            R = doc[r].lower()
+        else:
+            R = ""
 
-        #Each value is checked in order to find and make sure that is a win
-        if v1 == v2 == v3 and v1 in ["x", "o"]:
-            return f"Player {v1.upper()} wins!"
+        #Since TIR should be the same it checks to make sure they are
+        if T == I == R and T in ["x", "o"]:
+            winner = f"Player {T.upper()} wins!"
+            return winner
             
     return "No winner found."
 
 print(check_winner(doc))    
-'''
+
+
 @app.route('/wins')
 def player_wins():
-if 'winner' in session and session['winner']in['X','O']:
-collection.update_one(
-{'_id: 1'},
-{"$inc":{f"{session['winner']}_wins":1}}
-)
-session.pop('winner')
-x_wins = collection.find_one({'_id': 1}) or {'x_wins': 0}
-o_wins = collection.find_one({'_id': 1}) or {'o_wins': 0}
+    if 'winner' in ['X','O']:
+        collection.insert_one(
+        {'_id: 1'},
+        {"$inc":{f"{T.upper}_wins":1}}
+        )
+        session.pop('winner')
+        x_wins = collection.find_one({'_id': 1}) or {'x_wins': 0}
+        o_wins = collection.find_one({'_id': 1}) or {'o_wins': 0}
 
-return render_template('page1.html, x_wins=x_wins, o_wins=o_wins')
+    return render_template('page1.html, x_wins=x_wins, o_wins=o_wins')
 
-'''
+
 
 #the tokengetter is automatically called to check who is logged in.
 @github.tokengetter
