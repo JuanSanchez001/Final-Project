@@ -84,11 +84,16 @@ def authorized():
     return render_template('page1.html')
 
 
+
 @app.route('/page1')
 def renderPage1():
-    
-    return render_template('page1.html',dump_user_data=user_data_pprint)
-    
+   
+    wins = collection.find_one({'_id': 1}) or {}# this is to find the count doc and the "{}" is for first game
+    x_wins = wins.get('x_wins')# retrieves amount of wins
+    o_wins = wins.get('o_wins')
+   
+    return render_template('page1.html', x_wins=x_wins, o_wins=o_wins)# updates leaderboard
+   
 @app.route('/play', methods=['GET', 'POST'])
 def play_button():
     return redirect(url_for('renderPage2'))
@@ -109,13 +114,16 @@ def renderPage2():
             "td9": request.form['td9'],
         }
         collection.insert_one(doc)
-        
-        winner= check_winner(doc)
-        return redirect(url_for('renderPage1')) 
+       
+        winner = check_winner(doc)# this makes sure theres a winner and if there is redirects to "/wins"
+        if winner:
+            session['winner'] = winner
+            return redirect(url_for('player_wins'))
+        return redirect(url_for('renderPage1'))
     return render_template('page2.html')
-    
-    
-    
+   
+   
+   
 # the pymongo.DESCENDING checks the newest doc    
 doc = collection.find_one(sort=[("_id", pymongo.DESCENDING)])
 
@@ -126,7 +134,7 @@ win_combinations = [
     ("td1", "td5", "td9"), ("td3", "td5", "td7")                
 ]
 
-def check_winner(doc):
+def check_winner(doc):# checks through each cell
     for t, i, r in win_combinations:#(t,i,r) = "Three in Row"
         if t in doc:
             T = doc[t].lower()# i used .lower and .upper to be able to put either capital X, O, or lowercase x, o
@@ -143,26 +151,24 @@ def check_winner(doc):
 
         #Since TIR should be the same it checks to make sure they are
         if T == I == R and T in ["x", "o"]:
-            winner = f"Player {T.upper()} wins!"
+            winner = T.upper()
             return winner
-            
-    return "No winner found."
-
-print(check_winner(doc))    
+       
 
 
 @app.route('/wins')
-def player_wins():
-    if 'winner' in ['X','O']:
-        collection.insert_one(
-        {'_id: 1'},
-        {"$inc":{f"{T.upper}_wins":1}}
-        )
-        session.pop('winner')
-        x_wins = collection.find_one({'_id': 1}) or {'x_wins': 0}
-        o_wins = collection.find_one({'_id': 1}) or {'o_wins': 0}
+def player_wins():# it checks if a winner was found and uses session.get in order to grab it from check winner and if its either "X" or "O" and updates a doc by 1 for each win
+    if 'winner' in session:
+        winner = session.get('winner')
+        if winner in ['X','O']:
+            collection.update_one(
+                {'_id': 1},
+                {"$inc":{f"{winner.lower()}_wins":1}},
+                upsert=True# this was to make the doc in order to start the count
+            )
+            session.pop('winner')#clears the winner in order for there to be new games
 
-    return render_template('page1.html, x_wins=x_wins, o_wins=o_wins')
+    return redirect(url_for('renderPage1'))
 
 
 
